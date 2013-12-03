@@ -1,0 +1,152 @@
+Pandora (Scripted Component based UI Designer)
+-------
+
+If an xml node as children then its a definition of that node, if it doesn't then it's a call to create that object
+
+Create a Button with caption "Play"
+
+<Button caption="Play" />
+
+// define the Button class
+<Button caption="Button">
+	// Normal Image
+	<BtnImage id="normal "text="$caption" color="0xFFDDFF" txtColor="0xFFFFFF" />
+	// Over Image
+	<BtnImage id="over" text="$caption" color="0xDDDDDD" txtColor="0x000000" />
+	// Down Image
+	<BtnImage id="down" text="$caption" color="0xAAAAAA" txtColor="0x000000" />
+</Button>
+
+// define BtnImage
+<BtnImage text="" color="0xFFFFFF" txtColor="0x000000">
+	// The background Image
+	<BtnBgImage color="$color" />
+	// This is a primitive and doesn't need to be explicitly designed
+	<TextField text="$text" color="$txtColor" halign="center" valign="middle" />
+</BtnImage>
+
+// define BtnBgImage
+<BtnBgImage color="0xFFFFFF">
+	<lineStyle color="0xFFFFFF" thickness="2" />
+	<beginFill color="$color" />
+	<drawRect x="-50" y="-20" width="100" height="40" />
+	<endFill />
+</BtnBgImage>
+
+// define drawRect
+<drawRect x="" y="" width="" height="">
+	<moveTo x="$x" y="$y" />
+	<lineTo x="$x + $width" y="$y" />
+	<lineTo x="$x + $width" y="$y + $height" />
+	<lineTo x="$x" y="$y + $height" />
+	<lineTo x="$x" y="$y" />
+</drawRect>
+
+Primitive Commands
+------------------
+moveTo
+lineStyle
+beginFill
+endFill
+lineTo
+curveTo
+TextField
+
+Sample Description file
+
+<ConfirmationPopup title=”Title Text” body=”Body Text”>
+	// Call for creating a pop-up bg
+	<PopupBg width=”200” height=”150” text=”@body”/>
+	// Create a title bar with y at the top of the parent
+	<PopupTitle width=”160” y=”-75” text=”@title” />
+	// Create the buttons
+	<Button id=”btnYes” caption=”Yes” x=”-50” y=”75” />
+	<Button id=”btnNo” caption=”No” x=”50” y=”75” />
+</ConfirmationPopup>
+
+<PopupBg width=”100” height=”75” text=”Some Text”>
+	<lineStyle color=”0x000000” thickness=”2” />
+	<beginFill color=”0xFFFFFF” />
+	<drawRect x=”-@width/2” y=”-@height/2” width=”@width” height=”@height />
+	<endfill />
+	<textField color=”0x000000” text=”@text” />
+</PopupBg>
+
+<PopupTitle width=”160” y=”-75” text=”@title” >
+	<lineStyle color=”0x000000” thickness=”2” />
+	<beginFill color=”0xFFFFFF” />
+	<drawRect x=”-@width/2” y=”-@height/2” width=”@width” height=”@height />
+	<endfill />
+	<textField color=”0xFF0000” text=”@text” />
+</PopupTitle>
+
+<Button caption=”Yes” x=”-50” y=”75”>
+	<ButtonGra id=”btnNormal” text=”@caption” color=”0xFF0000” />
+	<ButtonGra id=”btnOver” text=”@caption” color=”0xFF0000” visible=”false” />
+	<ButtonGra id=”btnOut” text=”@caption” color=”0xFF0000” visible=”false” />
+</Button>
+
+<ButtonGra text=”@caption” color=”0xFF0000”>
+	<lineStyle color=”0x000000” thickness=”2” />
+	<beginFill color=”@color” />
+<drawRect x=”-@width/2” y=”-@height/2” width=”@width” height=”@height />
+	<endfill />
+	<textField color=”0x000000” text=”@text” />
+</ButtonGra>
+
+Classes
+-------
+
+ComponentDefinition
+-------------------
+- Can parse attributes off an xml node and contain them in a Dictionary
+- Contains the class definition
+- Cannot contain children
+- Can access class information from the component ComponentManager
+- Can call the class CreateComponent with the parameters method and return a ComponentObject
+- Can check if the class concerned is realised
+{
+	ComponentDefinition(attr:XML)
+	CreateComponent():ComponentObject
+	IsClassResolved():Boolean // Just calls the class queries 
+}
+
+
+ComponentClass extends ComponentDefinition
+--------------
+- Can contain a list of child ComponentDefinition
+
+{
+	IsResolved();
+	GetUnResolvedChildren():Array;
+	CreateComponent(attributes:Dictionary):ComponentObject;
+	GetClass():String
+	GetAttributes():Dictionary
+}
+
+ComponentObject extends Sprite
+{
+	GetBitmap():BitmapData;
+	GetChild(id:String):ComponentObject;
+	GetClass():String;
+	GetChildren(Class:String);
+	GetId():String;
+	GetAttributes():Dictionary;
+}
+
+ComponentManager()
+{
+	Load(xml:XML);
+
+	// Check if all the classes have been realised and the system is ready for use
+	IsReady():Boolean;
+	
+	// Run through all classes and realise them one by one
+	RealiseClasses();
+	
+	// Get Component by ID
+	GetComponent(id:String):ComponentObject
+	CreateComponent(classid:String):ComponentObject
+}
+
+

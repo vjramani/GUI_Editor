@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<cobj>
+	<lineStyle color="0x0080C0" thickness="2" />
+	<moveTo x="-50" y="0" />
+	<lineTo x="50" y="0" />
+</cobj>
+
+<cobj id="Comp" />
+

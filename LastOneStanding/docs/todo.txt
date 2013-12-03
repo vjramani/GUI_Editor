@@ -1,0 +1,47 @@
+- Create basic components in XML, Button, Progress bar, circular loader, dialog box, screen
+- Write events system that can be given from the client
+- Write classes to interpret components
+- Ability to load data from multiple xml files
+
+- Create Event management system from the UIControlManager
+- Create a base UIControls class
+- Complete UIControlManager class
+- Complete Button Class, put in click callback
+
+Loader bar
+----------
+- Bg
+- Head
+- Fill
+- Mask
+
+-------------------------------------------------------------------------------
+Structure of delta
+
+UIControlManager - Static class
+	- Main control interface for all UI components
+	- Load(): load the complete UI in one go, send int the loaded XML content and use the
+	- Register() register a call back function which will be called anytime an event is fired from the UI
+
+
++ Set attribute values on object like position and rotation and should be transferred to the sprite visible
++ Handling expressions in attributes and basic alinment methods
++ Complete text primitve to handle aligning, wordwrap and embedded fonts
++ Complete parsing attributes from parent
++ Handle passed attribute and default attributes
++ Handle passed instance names for objects
++ Add text to PrimitiverOperations
++ Handle Rendering of the ComponentManager
++ Create PrimitiverOperations class and putin all Primitive operations
++ Modify ComponentClass class to suit the new ComponentDefinition class
++ Check if the GetAllAttributes function in XMLScriptInterpreter works
++ Complete the ComponentDefinition Class
+
+
+
+
+
+--------------------------------------------------------------------------------
+- Write the Font system and basic graphics libraries
+
+

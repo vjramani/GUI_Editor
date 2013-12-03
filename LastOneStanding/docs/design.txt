@@ -1,0 +1,39 @@
+config.xml
+<gameconfig>
+	<lanes num="5" />
+	<gamestep delay="0.5" />
+	<controlbar height="5%" />
+	<dependecies>
+		<enemies src="enemies.xml" />
+		<waves src="waves.xml" />
+		<hero src="hero.xml" />
+		<weapons src=""weapons.xml">
+		<map src="map1.xml" />
+		<map src="map2.xml" />
+		<map src="map3.xml" />
+		<map src="map4.xml" />
+	</dependecies>
+</gameconfig>
+
+// Each xml file will represent one map
+map1.xml
+<map name="Some Map Name" bg="asdasda.png">
+	<wave>
+		
+	</wave>
+	<wave>
+	</wave>
+	
+</map>
+
+// All enemies configured here
+enemies.xml
+
+// All wave patterns configured here
+waves.xml
+
+// All hero parameters configured here
+hero.xml
+
+// All hero weapons will be configured here
+weapons.xml
