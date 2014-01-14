@@ -162,7 +162,7 @@ package core.pandora
 			
 			return _obj;
 		}
-		
+		/*
 		private function AlignObjectToParent(_obj:ComponentObject):void
 		{
 			var _arr:Array = _obj.GetChildren();
@@ -173,7 +173,7 @@ package core.pandora
 				
 			}
 		}
-		
+		*/
 		public function GetClassName():String
 		{
 			return compDefinition.GetClassName();

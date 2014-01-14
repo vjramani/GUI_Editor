@@ -9,6 +9,8 @@ package
 	 */
 	public class Main extends Sprite 
 	{
+		[Embed(source="../res/fonts/pirulen.ttf", fontName = "Pirulen", mimeType = "application/x-font", embedAsCFF="false")]
+		private var embeddedFontPirulen:Class;
 		
 		public function Main():void 
 		{
@@ -19,7 +21,8 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			addChild(new UITester());
+			//addChild(new UITester());
+			addChild(new UIEditor());
 		}
 		
 	}

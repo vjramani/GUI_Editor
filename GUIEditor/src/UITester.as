@@ -15,8 +15,6 @@ package
 	 */
 	public class UITester extends Sprite
 	{
-		[Embed(source="../res/fonts/pirulen.ttf", fontName = "Pirulen", mimeType = "application/x-font", embedAsCFF="false")]
-		private var embeddedFontPirulen:Class;
 		
 		public function UITester() 
 		{
