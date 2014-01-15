@@ -8,15 +8,8 @@ package core.pandora
 	 */
 	public class ComponentManager 
 	{
-		/*
-		static private var instance:ComponentManager = null;
+		private static var rootElemIdCount:int = 0;
 		
-		static public function GetInstance():ComponentManager
-		{
-			if (!instance) instance = new ComponentManager(new CompManagerSingletonBlocker());
-			return instance;
-		}
-		*/
 		private var ready:Boolean = false;
 		private var classDefinitions:Dictionary = null;
 		private var rootElements:Dictionary = null;
@@ -46,7 +39,9 @@ package core.pandora
 				}
 				else
 				{
-					_rootDefinitions[XMLScriptInterpreter.GetNodeName(_node)] = new ComponentDefinition(_node, this);
+					var _idName:String = XMLScriptInterpreter.GetNodeName(_node) + "_" + (++rootElemIdCount);
+					//_rootDefinitions[XMLScriptInterpreter.GetNodeName(_node)] = new ComponentDefinition(_node, this);
+					_rootDefinitions[_idName] = new ComponentDefinition(_node, this);
 				}
 			}
 			
@@ -103,15 +98,9 @@ package core.pandora
 			return ready;
 		}
 		
-		public function Test():void
+		public function CleanUp():void
 		{
-			//trace("Something is wrong".replace("Something", "Nothing"));
-			//var _d:Dictionary = new Dictionary();
-			//_d["width"] = 800;
-			//_d["height"] = 600;
-			//_d["value1"] = 20;
-			//trace(ComponentClass.ResolveVariables("$width/2 + $height*4 + $value1", _d));
-			//trace(ComponentClass.ResolveVariables("$value1", _d));
+			
 		}
 	}
 }

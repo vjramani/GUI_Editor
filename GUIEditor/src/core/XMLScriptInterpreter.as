@@ -48,6 +48,8 @@ package core
 		
 		static public function GetPropertyValue(root:XML, name:String):Object 
 		{
+			var _val:String = root.@id;
+			if (_val) return _val;
 			return null;
 		}
 		
