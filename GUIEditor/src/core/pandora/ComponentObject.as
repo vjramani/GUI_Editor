@@ -70,6 +70,11 @@ package core.pandora
 			return _names;
 		}
 		
+		public function GetParent():ComponentObject
+		{
+			return parent;
+		}
+		
 		public function GetGraphic():Sprite
 		{
 			return graphic;
