@@ -8,12 +8,14 @@ package core.pandora
 	 */
 	internal class ComponentDefinition 
 	{
+		private var compManagerHandle:ComponentManager = null;
 		private var attributes:Dictionary = null;
 		private var compClass:ComponentClass = null
 		private var compClassName:String = null;
 		
-		public function ComponentDefinition(_data:XML):void 
+		public function ComponentDefinition(_data:XML, _compMan:ComponentManager):void 
 		{
+			compManagerHandle = _compMan;
 			compClassName = XMLScriptInterpreter.GetNodeName(_data);
 			attributes = ParseArttibutes(XMLScriptInterpreter.GetAllAttributes(_data));
 			
@@ -58,7 +60,7 @@ package core.pandora
 		{
 			// Recove the class name from the Component Manager
 			if (IsResolved()) return;
-			compClass = ComponentManager.GetInstance().GetComponentClass(compClassName);
+			compClass = compManagerHandle.GetComponentClass(compClassName);
 		}
 		
 	}

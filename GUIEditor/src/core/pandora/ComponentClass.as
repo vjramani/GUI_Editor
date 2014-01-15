@@ -88,15 +88,17 @@ package core.pandora
 			return _passed;
 		}
 		
+		private var compManagerHandle:ComponentManager = null;
 		private var compDefinition:ComponentDefinition = null;
 		private var children:Array = null;
 		
-		public function ComponentClass(_data:XML)
+		public function ComponentClass(_data:XML, _compMan:ComponentManager)
 		{
 			// Strip the xml and make the relevant child classes, Get the definition from the configuration class
 			if (!_data) throw("Invalid XML data sent to ComponentDefinition");
 			
-			compDefinition = new ComponentDefinition(_data);
+			compManagerHandle = _compMan;
+			compDefinition = new ComponentDefinition(_data, compManagerHandle);
 			
 			children = new Array();
 			ParseChildComponents(_data);
@@ -107,7 +109,7 @@ package core.pandora
 			var _children:Array = XMLScriptInterpreter.GetChildNodes(_data);
 			for (var i:int = 0; i < _children.length; i++)
 			{
-				children.push(new ComponentDefinition(_children[i]));
+				children.push(new ComponentDefinition(_children[i], compManagerHandle));
 			}
 		}
 		

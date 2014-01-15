@@ -28,7 +28,7 @@ package
 		
 		private function ConfigFileLoaded(_data:*):void 
 		{
-			var _compMan:ComponentManager = ComponentManager.GetInstance();
+			var _compMan:ComponentManager = new ComponentManager();
 			_compMan.Load(XML(_data));
 			
 			var _uiMan:IUIControlManager = UIControlManager.GetUIControlManager();

@@ -8,6 +8,7 @@ package core.pandora
 	 */
 	public class ComponentManager 
 	{
+		/*
 		static private var instance:ComponentManager = null;
 		
 		static public function GetInstance():ComponentManager
@@ -15,14 +16,14 @@ package core.pandora
 			if (!instance) instance = new ComponentManager(new CompManagerSingletonBlocker());
 			return instance;
 		}
-		
+		*/
 		private var ready:Boolean = false;
 		private var classDefinitions:Dictionary = null;
 		private var rootElements:Dictionary = null;
 		
-		public function ComponentManager(_s:CompManagerSingletonBlocker) 
+		public function ComponentManager() 
 		{
-			if (!_s) throw("Attempting to instatiate Singleton class ComponentManager");
+			//if (!_s) throw("Attempting to instatiate Singleton class ComponentManager");
 			
 			PrimitiveOperations.InitOperations();
 			classDefinitions = new Dictionary();
@@ -41,11 +42,11 @@ package core.pandora
 			{
 				if (XMLScriptInterpreter.GetChildCount(_node) > 0)
 				{
-					classDefinitions[XMLScriptInterpreter.GetNodeName(_node)] = new ComponentClass(_node);
+					classDefinitions[XMLScriptInterpreter.GetNodeName(_node)] = new ComponentClass(_node, this);
 				}
 				else
 				{
-					_rootDefinitions[XMLScriptInterpreter.GetNodeName(_node)] = new ComponentDefinition(_node);
+					_rootDefinitions[XMLScriptInterpreter.GetNodeName(_node)] = new ComponentDefinition(_node, this);
 				}
 			}
 			
@@ -114,8 +115,9 @@ package core.pandora
 		}
 	}
 }
-
+/*
 class CompManagerSingletonBlocker
 {
 	
 }
+*/

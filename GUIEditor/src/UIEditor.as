@@ -1,5 +1,6 @@
 package  
 {
+	import core.FileLoader;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.NativeWindowBoundsEvent;
@@ -9,6 +10,8 @@ package
 	 */
 	public class UIEditor extends Sprite
 	{
+		private static var EDITOR_UI_URL:String = "res/editorui.xml";
+		private var editorInitialized:Boolean = false;
 		
 		public function UIEditor() 
 		{
@@ -25,8 +28,20 @@ package
 		
 		private function WindowResized(e:NativeWindowBoundsEvent):void 
 		{
+			if (!editorInitialized)
+			{
+				FileLoader.Load(EDITOR_UI_URL, LoadEditorUI);
+				editorInitialized = true;
+			}
+		}
+		
+		private function LoadEditorUI(_data:*):void 
+		{
+			// Load the editor UI
 			
 		}
+		
+		
 		
 	}
 
