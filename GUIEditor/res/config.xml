@@ -1,9 +1,105 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<cobj>
-	<lineStyle color="0x0080C0" thickness="2" />
-	<moveTo x="-50" y="0" />
-	<lineTo x="50" y="0" />
-</cobj>
+<elems>
+	
+	<!-- Pop Up -->
+	<popup2 headerText="Popup" msgText="Some Message text goes here" width="300" height="100">
+		<headerbar txt="$headerText" width="$width" />
+		<bodyrect txt="$msgText" width="$width" height="$height" />
+		
+		<button id="btnYes" eventClicked="evtYesClicked" caption="Yes" x="$width / 2 - 100" y="$height-5" />
+		<button id="btnNo" eventClicked="evtNoClicked" caption="No" x="$width / 2 + 10" y="$height-5" />
+	</popup2>
+	<headerbar txt="Header" width="200">
+		<Box x="0" y="0" width="$width" height="20" fill="0x666666" />
+		<textField text="$txt" color="0xFFFFFF" x="2" y="1" />
+	</headerbar>
+	<bodyrect txt="Body Text" width="200" height="100">
+		<Box x="0" y="20" width="$width" height="$height" />
+		<textField text="$txt" color="0x000000" align="center" twidth="$width" theight="$height/2" y="$height/2" />
+	</bodyrect>
+	<!-- End Pop -->
 
-<cobj id="Comp" />
-
+	<!-- Progress Obj -->
+	<progressbar width="100">
+		<bar id="empty" width="$width" yoffset="5" />
+		<bar id="full" width="$width" yoffset="5" thickness="2" />
+		<progressbarmask id="maskFull" />
+		<head id="head" />
+	</progressbar>
+	<head>
+		<lineStyle color="0x999999" thickness="1" />
+		<beginFill color="0x999999" />
+		<moveTo x="0" y="0" />
+		<lineTo x="3" y="0" />
+		<lineTo x="3" y="10" />
+		<lineTo x="0" y="10" />
+		<lineTo x="0" y="0" />
+		<endFill />
+	</head>
+	<bar width="100" yoffset="0" thickness="1">
+		<lineStyle color="0x999999" thickness="$thickness" />
+		<moveTo x="0" y="$yoffset" />
+		<lineTo x="$width" y="$yoffset" />
+	</bar>
+	<progressbarmask start="0" end="100" yoffset="10">
+		<beginFill color="0x999999" />
+		<moveTo x="$start" y="0" />
+		<lineTo x="$end" y="0" />
+		<lineTo x="$end" y="$yoffset" />
+		<lineTo x="$start" y="$yoffset" />
+		<lineTo x="$start" y="0" />
+		<endFill />
+	</progressbarmask>
+	<!-- End Progress -->
+	
+	<!-- Button Obj -->
+	<button caption="Button">
+		<buttonbg id="out" bgcolor="0x999999" textcolor="0x000000" bordercolor="0xFFFFFF" caption="$caption" />
+		<buttonbg id="over" bgcolor="0x000000" textcolor="0xFFFFFF" bordercolor="0xFFFFFF" caption="$caption" />
+		<buttonbg id="down" bgcolor="0xFFFFFF" textcolor="0x999999" bordercolor="0x999999" caption="$caption" />
+	</button>
+	
+	<buttonbg id="state" bgcolor="0x000000" textcolor="0x999999" bordercolor="0x999999" caption="Button" width="100" height="20">
+		<lineStyle color="$bordercolor" thickness="2" />
+		<beginFill color="$bgcolor" />
+		<moveTo x="0" y="0" />
+		<lineTo x="$width" y="0" />
+		<lineTo x="$width" y="$height" />
+		<lineTo x="0" y="$height" />
+		<lineTo x="0" y="0" />
+		<endFill />
+		<textField text="$caption" size="10" color="$textcolor" twidth="$width" theight="$height" align="center" y="1" />
+	</buttonbg>
+	<!-- End Button -->
+	
+	<!-- Generic Text Box -->
+	<textField text="TextField" size="10" color="0xFFFFFF" twidth="100" theight="50" align="left">
+		<text color="$color" size="$size" font="Pirulen" text="$text" txtwidth="$twidth" txtheight="$theight" txtalign="$align" />
+	</textField>
+	<!-- End -->
+	
+	<Box sx="0" sy="0" width="300" height="300" stroke="0xFFFFFF" fill="0xAAAAAA">
+		<lineStyle color="$stroke" thickness="2" />
+		<beginFill color="$fill" />
+		<moveTo x="$sx" y="$sy" />
+		<lineTo x="$sx+$width" y="$sy" />
+		<lineTo x="$sx+$width" y="$sy+$height" />
+		<lineTo x="$sx" y="$sy+$height" />
+		<lineTo x="$sx" y="$sy" />
+		<endFill />
+	</Box>
+	
+	<Tester width="300" height="300" x="100" y="100">
+		<Box width="$width" height="$height" stroke="0xFF0000" fill="0xAA6666" />
+		<Box x="$width/4" y="$height*0.25" width="$width/2" height="$height/2" stroke="0xFFFF00" fill="0x6666AA" visible="true" />
+	</Tester>
+	
+	<!--
+	<button id="btnFirst" caption="Explode" />
+	<progressbar id="proLoader" eventLoad="evtOnLoad" eventComplete="evtOnComplete" x="50" y="10" />
+	<Tester id="tester" />-->
+	
+	<popup2 id="popup" x="250" y="100" />
+	<popup2 id="popup1" x="250" y="250" />
+	<popup2 id="popup2" x="250" y="400" />
+</elems>

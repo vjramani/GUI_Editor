@@ -106,19 +106,26 @@ package
 		private var targetXML:XML = null;
 		private function FileToOpenSelected(e:Event):void 
 		{
-			trace(fileToEdit.nativePath);
+			//trace(fileToEdit.nativePath);
 			fileStream = new FileStream();
-			fileStream.open(fileToEdit, FileMode.UPDATE);
+			fileStream.open(fileToEdit, FileMode.READ);
 			
 			targetXML = XML(fileStream.readUTFBytes(fileStream.bytesAvailable));
 			editorViewport.LoadControls(targetXML);
+			
+			fileStream.close();
+			fileStream = null;
 		}
 		
 		private function SaveUIFile(_obj:String):void 
 		{
 			if (!fileToEdit) return;
 			
+			fileStream = new FileStream();
+			fileStream.open(fileToEdit, FileMode.WRITE);
 			
+			fileStream.writeUTFBytes(targetXML.toString());
+			fileStream.close();
 		}
 		
 	}

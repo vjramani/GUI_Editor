@@ -5,6 +5,7 @@ package editor
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	/**
 	 * ...
@@ -40,21 +41,6 @@ package editor
 			CreateHighLightShape(highlight.graphics);
 			AddHighLightProperties(compObject.GetGraphic());
 			editorViewportRef.AddHightLight(highlight);
-			
-			// Get all children
-			var _cobjs:Array = compObject.GetChildren();
-			if (!_cobjs || _cobjs.length <= 0) return;
-			
-			children = new Array();
-			// Parse and add all children
-			var _child:ComponentObject = null;
-			var _chM:ComponentObjectManipulator = null;
-			for (var i:int = 0; i < _cobjs.length; i++)
-			{
-				_child = compObject.GetChildObject(_cobjs[i]);
-				_chM = CreateCOManipulator(_child, editorViewportRef);
-				children.push(_chM);
-			}
 		}
 		
 		private function AddHighLightProperties(_gra:Sprite):void 
@@ -71,17 +57,53 @@ package editor
 			highlight.alpha = 0.1;
 			highlight.addEventListener(MouseEvent.MOUSE_OVER, MouseOver);
 			highlight.addEventListener(MouseEvent.MOUSE_OUT, MouseOut);
+			highlight.addEventListener(MouseEvent.MOUSE_DOWN, MouseDown);
+			highlight.addEventListener(MouseEvent.MOUSE_UP, MouseUp);
+			highlight.addEventListener(MouseEvent.MOUSE_MOVE, MouseMove);
+			//highlight.addEventListener(MouseEvent.ROLL_OUT, MouseOut);
+		}
+		
+		private var mouseHeld:Boolean = false;
+		private var startPoint:Point = new Point();
+		private var mousePoint:Point = new Point();
+		
+		private function MouseMove(e:MouseEvent):void 
+		{
+			if (mouseHeld)
+			{
+				compObject.GetGraphic().x = highlight.x;
+				compObject.GetGraphic().y = highlight.y;
+			}
+		}
+		
+		private function MouseUp(e:MouseEvent):void 
+		{
+			mouseHeld = false;
+			highlight.stopDrag();
+			
+			editorViewportRef.UpdateValuesFor(this, highlight.x, highlight.y);
+		}
+		
+		private function MouseDown(e:MouseEvent):void 
+		{
+			if (highlight.alpha >= 1) {
+				mouseHeld = true;
+				startPoint.x = highlight.x;
+				startPoint.y = highlight.y;
+				
+				highlight.startDrag();
+			}
+			else mouseHeld = false;
 		}
 		
 		private function MouseOut(e:MouseEvent):void 
 		{
-			highlight.alpha = 0.1;
+			highlight.alpha = 0;
 		}
 		
 		private function MouseOver(e:MouseEvent):void 
 		{
 			highlight.alpha = 1;
-			
 			trace(compObject.GetClassName() + " : " + compObject.GetName());
 		}
 		
@@ -96,6 +118,26 @@ package editor
 			_g.endFill();
 		}
 		
+		public function GetClassPath():Array
+		{
+			var _arr:Array = new Array();
+			
+			var _co:ComponentObject = compObject.GetChildObject("btnNo").GetChildObject("out");
+			_arr.push(_co.GetClassName());
+			var _c:ComponentObject = _co.GetParent();
+			while (_c!=null)
+			{
+				_arr.push(_c.GetClassName());
+				_c = _c.GetParent();
+			}
+			
+			return _arr;
+		}
+		
+		public function GetCompObject():ComponentObject
+		{
+			return compObject;
+		}
 	}
 }
 
