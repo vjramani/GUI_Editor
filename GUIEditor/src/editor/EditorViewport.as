@@ -35,9 +35,10 @@ package editor
 			
 			rootXML = _xml;
 			
+			//CreateHandlesFor(comManager.GetObject("popup"));
 			CreateHandlesFor();
 		}
-		
+
 		private function CreateHandlesFor(_parent:ComponentObject = null):void
 		{
 			var _arr:Array = null;
@@ -48,7 +49,8 @@ package editor
 			
 			for (var i:int = 0; i < _arr.length; i++)
 			{
-				_co = comManager.GetObject(_arr[i]);
+				if (_parent) _co = _parent.GetChildObject(_arr[i]);
+				else _co = comManager.GetObject(_arr[i]);
 				AddComponent(_co);
 			}
 		}
@@ -56,7 +58,13 @@ package editor
 		private function AddComponent(_co:ComponentObject):void
 		{
 			var _com:ComponentObjectManipulator = ComponentObjectManipulator.CreateCOManipulator(_co, this);
-			layerComp.addChild(_co.GetGraphic());
+			var _s:Sprite = _co.GetGraphic();
+			if (_co.GetParent() != null)
+			{
+				_s.x += _co.GetParent().GetGraphic().x;
+				_s.y += _co.GetParent().GetGraphic().y;
+			}
+			layerComp.addChild(_s);
 		}
 		
 		public function AddHightLight(_s:Sprite):void
@@ -72,14 +80,22 @@ package editor
 			if (_po)
 			{
 				// Get the class
-				_xml = rootXML.child(_po.GetClassName());
+				var _list:XMLList = rootXML.child(_po.GetClassName());
+				for each(var _c:XML in _list)
+				{
+					trace(_c.children().length());
+					if (_c.children().length() > 0) {
+						_xml = _c;
+						break;
+					}
+				}
 			}
 			
 			var _childList:XMLList = _xml.child(_co.GetClassName());
 			for each(var _child:XML in _childList)
 			{
-				if (_child.children.length > 0) continue;
-				if (_child.@id != _co.GetAttribute("id")) continue;
+				if (_child.children().length() > 0) continue;
+				if (_childList.length() > 1 && _child.@id != _co.GetAttribute("id")) continue;
 				
 				_child.@x = _x;
 				_child.@y = _y;

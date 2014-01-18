@@ -81,9 +81,16 @@ package editor
 			mouseHeld = false;
 			highlight.stopDrag();
 			
-			editorViewportRef.UpdateValuesFor(this, highlight.x, highlight.y);
+			var _x:Number = highlight.x;
+			var _y:Number = highlight.y;
+			if (compObject.GetParent())
+			{
+				_x -= compObject.GetParent().GetGraphic().x;
+				_y -= compObject.GetParent().GetGraphic().y;
+			}
+			editorViewportRef.UpdateValuesFor(this, _x, _y);
 		}
-		
+		5
 		private function MouseDown(e:MouseEvent):void 
 		{
 			if (highlight.alpha >= 1) {
@@ -104,7 +111,7 @@ package editor
 		private function MouseOver(e:MouseEvent):void 
 		{
 			highlight.alpha = 1;
-			trace(compObject.GetClassName() + " : " + compObject.GetName());
+			//trace(compObject.GetClassName() + " : " + compObject.GetName());
 		}
 		
 		private function CreateHighLightShape(_g:Graphics):void
