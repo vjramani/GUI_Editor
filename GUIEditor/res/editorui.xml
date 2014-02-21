@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<elems>
+	
+	<!-- Button Obj -->
+	<button caption="Button">
+		<buttonbg id="out" bgcolor="0x999999" textcolor="0x000000" bordercolor="0xFFFFFF" caption="$caption" />
+		<buttonbg id="over" bgcolor="0x000000" textcolor="0xFFFFFF" bordercolor="0xFFFFFF" caption="$caption" />
+		<buttonbg id="down" bgcolor="0xFFFFFF" textcolor="0x999999" bordercolor="0x999999" caption="$caption" />
+	</button>
+	
+	<buttonbg id="state" bgcolor="0x000000" textcolor="0x999999" bordercolor="0x999999" caption="Button" width="100" height="20">
+		<lineStyle color="$bordercolor" thickness="2" />
+		<beginFill color="$bgcolor" />
+		<moveTo x="0" y="0" />
+		<lineTo x="$width" y="0" />
+		<lineTo x="$width" y="$height" />
+		<lineTo x="0" y="$height" />
+		<lineTo x="0" y="0" />
+		<endFill />
+		<textField text="$caption" size="10" color="$textcolor" twidth="$width" theight="$height" align="center" y="1" />
+	</buttonbg>
+	<!-- End Button -->
+	
+	<!-- Generic Text Box -->
+	<textField text="TextField" size="10" color="0xFFFFFF" twidth="100" theight="50" align="left">
+		<text color="$color" size="$size" font="Pirulen" text="$text" txtwidth="$twidth" txtheight="$theight" txtalign="$align" />
+	</textField>
+	<!-- End -->
+	
+	<Box sx="0" sy="0" width="300" height="300" stroke="0xFFFFFF" fill="0xAAAAAA">
+		<lineStyle color="$stroke" thickness="2" />
+		<beginFill color="$fill" />
+		<moveTo x="$sx" y="$sy" />
+		<lineTo x="$sx+$width" y="$sy" />
+		<lineTo x="$sx+$width" y="$sy+$height" />
+		<lineTo x="$sx" y="$sy+$height" />
+		<lineTo x="$sx" y="$sy" />
+		<endFill />
+	</Box>
+	
+	<button id="btnLoadFile" eventClicked="evtEditorLoadFile" caption="Load" x="804" y="570" />
+	<button id="btnSaveFile" eventClicked="evtEditorSaveFile" caption="Save" x="914" y="570" />
+</elems>

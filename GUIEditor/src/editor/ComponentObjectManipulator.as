@@ -61,6 +61,12 @@ package editor
 			highlight.addEventListener(MouseEvent.MOUSE_UP, MouseUp);
 			highlight.addEventListener(MouseEvent.MOUSE_MOVE, MouseMove);
 			//highlight.addEventListener(MouseEvent.ROLL_OUT, MouseOut);
+			highlight.addEventListener(MouseEvent.RIGHT_CLICK, RightClicked);
+		}
+		
+		private function RightClicked(e:MouseEvent):void 
+		{
+			editorViewportRef.MoveDownHeirarhcy(compObject);
 		}
 		
 		private var mouseHeld:Boolean = false;

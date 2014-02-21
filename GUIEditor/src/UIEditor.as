@@ -82,9 +82,16 @@ package
 			
 			editorUIControlManager.Show("btnLoadFile");
 			editorUIControlManager.Show("btnSaveFile");
+			editorUIControlManager.Show("btnUpHeirarchy");
 			
 			editorUIControlManager.RegisterEventListener("evtEditorLoadFile", LoadUIFile);
 			editorUIControlManager.RegisterEventListener("evtEditorSaveFile", SaveUIFile);
+			editorUIControlManager.RegisterEventListener("evtUpHeirarchy", MoveUpHeirarchy);
+		}
+		
+		private function MoveUpHeirarchy(_obj:String):void 
+		{
+			if(editorViewport) editorViewport.MoveUpHeirarchy();
 		}
 		
 		private var fileToEdit:File = null;

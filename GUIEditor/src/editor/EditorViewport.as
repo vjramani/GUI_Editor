@@ -3,6 +3,7 @@ package editor
 	import core.pandora.ComponentManager;
 	import core.pandora.ComponentObject;
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	
 	/**
 	 * ...
@@ -17,6 +18,8 @@ package editor
 		private var layerComp:Sprite = null;
 		private var layerHL:Sprite
 		
+		private var currCompObject:ComponentObject = null;
+		
 		public function EditorViewport(_sprite:Sprite) 
 		{
 			targetSprite = _sprite;
@@ -27,6 +30,28 @@ package editor
 			targetSprite.addChild(layerHL);
 		}
 		
+		public function MoveUpHeirarchy():void 
+		{
+			//trace("Move Up Heirarchy");
+			if (currCompObject)
+			{
+				currCompObject = currCompObject.GetParent();
+				ClearLayer(layerComp);
+				ClearLayer(layerHL);
+				CreateHandlesFor(currCompObject);
+			}
+		}
+		
+		public function MoveDownHeirarhcy(_c:ComponentObject):void
+		{
+			//trace("Move Down Heirarchy");
+			if (!_c) return;
+			currCompObject = _c;
+			ClearLayer(layerComp);
+			ClearLayer(layerHL);
+			CreateHandlesFor(currCompObject);
+		}
+		
 		public function LoadControls(_xml:XML):void
 		{
 			if (comManager) comManager.CleanUp();
@@ -35,12 +60,13 @@ package editor
 			
 			rootXML = _xml;
 			
+			currCompObject = null;
 			//CreateHandlesFor(comManager.GetObject("popup"));
 			CreateHandlesFor();
 		}
 
 		private function CreateHandlesFor(_parent:ComponentObject = null):void
-		{
+		{	
 			var _arr:Array = null;
 			if (!_parent) _arr = comManager.GetElementList();
 			else _arr = _parent.GetChildren();
@@ -104,6 +130,17 @@ package editor
 			}
 		}
 		
+		private function ClearLayer(_s:Sprite):void
+		{
+			var _n:int = _s.numChildren;
+			if (_n <= 0) return;
+			
+			while (_n > 0)
+			{
+				_s.removeChildAt(0);
+				_n = _s.numChildren;
+			}
+		}
 	}
 
 }
